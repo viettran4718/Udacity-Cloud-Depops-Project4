@@ -88,4 +88,5 @@ jobs:
           aws eks update-kubeconfig --name cluster --region ${{vars.AWS_DEFAULT_REGION}}
           cd k8s
           kustomize edit set image frontend=${{vars.AWS_ACCOUNT_ID}}.dkr.ecr.${{vars.AWS_DEFAULT_REGION}}.amazonaws.com/${{env.IMAGE_REPO_NAME}}:${{env.IMAGE_TAG}}
+          kustomize build | kubectl delete -f -
           kustomize build | kubectl apply -f -
