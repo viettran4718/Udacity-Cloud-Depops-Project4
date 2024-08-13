@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: 18.16.1
-  IMAGE_REPO_NAME: proj4-frontend
+  IMAGE_REPO_NAME: frontend
 
 jobs:
   lint:

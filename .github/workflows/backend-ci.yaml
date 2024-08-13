@@ -8,7 +8,7 @@ on:
 
 env:
   PYTHON_VERSION: 3.11
-  IMAGE_REPO_NAME: proj4-backend
+  IMAGE_REPO_NAME: backend
 
 jobs:
   lint:
