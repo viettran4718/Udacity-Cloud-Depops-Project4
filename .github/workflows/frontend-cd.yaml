@@ -74,7 +74,7 @@ jobs:
       
       - name: Build, tag and push docker image to AWS ECR
         run: |
-          aws eks update-kubeconfig --name my-cluster
+          aws eks update-kubeconfig --name cluster
           kubectl get svc
           export EXTERNALIP=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')
           docker build -t ${{env.IMAGE_REPO_NAME}} --build-arg=REACT_APP_MOVIE_API_URL=http://$EXTERNALIP .
@@ -83,7 +83,7 @@ jobs:
 
       - name: Update kubeconfig, deploy to EKS
         run: |
-          aws eks update-kubeconfig --name my-cluster --region ${{vars.AWS_DEFAULT_REGION}}
+          aws eks update-kubeconfig --name cluster --region ${{vars.AWS_DEFAULT_REGION}}
           cd k8s
           kustomize edit set image frontend=${{vars.AWS_ACCOUNT_ID}}.dkr.ecr.${{vars.AWS_DEFAULT_REGION}}.amazonaws.com/${{env.IMAGE_REPO_NAME}}:${{env.IMAGE_TAG}}
           kustomize build | kubectl apply -f -
